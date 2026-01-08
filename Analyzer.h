@@ -1,14 +1,7 @@
 #pragma once
-#include <vector>
-#include <string>
+#include <iostream>
 
-struct BenchmarkRow {
-    std::string algorithm;
-    size_t chunkSize;
-    size_t dataSize;
-    long long cpuCost;
-    long long ioCost;
-    long long timeMs;
+class Analyzer {
+public:
+    static void explain();
 };
-
-void printTable(const std::vector<BenchmarkRow>& rows);
