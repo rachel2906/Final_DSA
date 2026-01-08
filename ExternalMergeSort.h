@@ -1,24 +1,23 @@
 #pragma once
-#include <string>
 #include <vector>
-#include "SortAlgorithm.h"
-#include "CostModel.h"
+#include <string>
 
 class ExternalMergeSort {
 public:
-    // Chia input file thành các chunk, sort từng chunk, ghi ra file tạm
-    static void splitToChunks(
-        const std::string& inputFile,
-        size_t chunkSize,
-        SortAlgorithm& sorter,
-        std::vector<std::string>& chunks,
-        CostModel& cost
-    );
+    // Constructor với chunk size
+    ExternalMergeSort(size_t chunkSize);
 
-    // Merge tất cả chunk thành output file
-    static void mergeChunks(
-        const std::string& outputFile,
-        const std::vector<std::string>& chunks,
-        CostModel& cost
-    );
+    // Public API: sort file input -> output
+    void sortFile(const std::string& inputFile,
+                  const std::string& outputFile);
+
+private:
+    size_t chunkSize;
+
+    // Chia file lớn thành chunk nhỏ và sort trong RAM
+    std::vector<std::string> splitAndSortChunks(const std::string& inputFile);
+
+    // Merge các chunk đã sort
+    void mergeChunks(const std::vector<std::string>& chunks,
+                     const std::string& outputFile);
 };
