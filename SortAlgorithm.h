@@ -1,10 +1,14 @@
 #pragma once
 #include <vector>
-#include "CostModel.h"
+#include <string>
 
 class SortAlgorithm {
 public:
     virtual ~SortAlgorithm() = default;
-    virtual void sort(std::vector<int>& data, CostModel& cost) = 0;
-    virtual const char* name() const = 0;
+
+    // Sort data in memory
+    virtual void sort(std::vector<int>& data) = 0;
+
+    // Name of algorithm (for analysis & explanation)
+    virtual std::string name() const = 0;
 };
