@@ -1,41 +1,24 @@
-#include "SortAlgorithm.h"
+#include "QuickSort.h"
 #include <algorithm>
 
-class QuickSort : public SortAlgorithm {
-    void qsort(std::vector<int>& a, int l, int r, CostModel& cost) {
-        if (l >= r) return;
+void QuickSort::sort(std::vector<int>& data) {
+    if (!data.empty())
+        quicksort(data, 0, (int)data.size() - 1);
+}
 
-        int pivot = a[r];
-        int i = l - 1;
+void QuickSort::quicksort(std::vector<int>& data, int left, int right) {
+    int i = left, j = right;
+    int pivot = data[(left + right) / 2];
 
-        for (int j = l; j < r; j++) {
-            cost.cpu_compare++;
-            if (a[j] < pivot) {
-                ++i;
-                std::swap(a[i], a[j]);
-                cost.cpu_move++;
-            }
+    while (i <= j) {
+        while (data[i] < pivot) i++;
+        while (data[j] > pivot) j--;
+        if (i <= j) {
+            std::swap(data[i], data[j]);
+            i++; j--;
         }
-
-        std::swap(a[i + 1], a[r]);
-        cost.cpu_move++;
-
-        int p = i + 1;
-        qsort(a, l, p - 1, cost);
-        qsort(a, p + 1, r, cost);
     }
 
-public:
-    void sort(std::vector<int>& a, CostModel& cost) override {
-        if (!a.empty())
-            qsort(a, 0, (int)a.size() - 1, cost);
-    }
-
-    const char* name() const override {
-        return "QuickSort";
-    }
-};
-
-SortAlgorithm* createQuickSort() {
-    return new QuickSort();
+    if (left < j) quicksort(data, left, j);
+    if (i < right) quicksort(data, i, right);
 }
