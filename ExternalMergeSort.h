@@ -1,23 +1,19 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <memory>
+#include <filesystem>
 
 class ExternalMergeSort {
 public:
-    // Constructor với chunk size
-    ExternalMergeSort(size_t chunkSize);
+    // Sử dụng size_t cho chunkSize (Byte hoặc số lượng phần tử)
+    explicit ExternalMergeSort(size_t chunkSize);
 
-    // Public API: sort file input -> output
-    void sortFile(const std::string& inputFile,
-                  const std::string& outputFile);
+    void sortFile(const std::string& inputFile, const std::string& outputFile);
 
 private:
     size_t chunkSize;
-
-    // Chia file lớn thành chunk nhỏ và sort trong RAM
+    // Sử dụng std::filesystem để quản lý file hiện đại
     std::vector<std::string> splitAndSortChunks(const std::string& inputFile);
-
-    // Merge các chunk đã sort
-    void mergeChunks(const std::vector<std::string>& chunks,
-                     const std::string& outputFile);
+    void mergeChunks(const std::vector<std::string>& chunkFiles, const std::string& outputFile);
 };
