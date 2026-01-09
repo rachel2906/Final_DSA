@@ -7,5 +7,6 @@ public:
     std::string name() const override { return "QuickSort"; }
 
 private:
-    void quicksort(std::vector<int>& data, int left, int right);
+    private:
+    void quicksort(std::vector<int>& data, int left, int right); 
 };
