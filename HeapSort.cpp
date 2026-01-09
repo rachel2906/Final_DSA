@@ -2,11 +2,9 @@
 #include <algorithm>
 
 void HeapSort::sort(std::vector<int>& data) {
-    // Build max heap
+    // Phase 1: Biến vector thành Max-Heap (O(n))
     std::make_heap(data.begin(), data.end());
 
-    // Pop elements one by one to sort
-    for (auto it = data.end(); it != data.begin(); --it) {
-        std::pop_heap(data.begin(), it);
-    }
+    // Phase 2: Sắp xếp Heap thành mảng tăng dần (O(n log n))
+    std::sort_heap(data.begin(), data.end());
 }
